@@ -30,7 +30,7 @@ class TestExampleJavaUtilLogging {
     /*
      * Store the log level to restore at the end
      */
-    private static Level PREVIOUS_LEVEL;
+    private static Level previousLevel;
 
     /*
      * The logger to configure in order to intercept the log message
@@ -45,24 +45,24 @@ class TestExampleJavaUtilLogging {
         private Set<String> messages = new HashSet<>();
 
         @Override
-        public void publish(LogRecord record) {
+        public void publish(LogRecord lr) {
             // add log messages to a set
-            this.messages.add(record.getMessage());
+            this.messages.add(lr.getMessage());
         }
 
         @Override
         public void flush() {
-
+            // no need to customize this method
         }
 
         @Override
         public void close() throws SecurityException {
-
+            // no need to customize this method
         }
 
         @Override
-        public boolean isLoggable(LogRecord record) {
-            return super.isLoggable(record);
+        public boolean isLoggable(LogRecord lr) {
+            return super.isLoggable(lr);
         }
 
         public boolean containsLogMessage(String message) {
@@ -73,18 +73,18 @@ class TestExampleJavaUtilLogging {
     }
 
     @BeforeAll
-    public static void start() {
+    static void start() {
         // add log message intercepting handler
         logger.addHandler(LOG_MESSAGE_INTERCEPTOR_HANDLER);
-        PREVIOUS_LEVEL = logger.getLevel();
+        previousLevel = logger.getLevel();
         logger.setLevel(Level.FINEST);
     }
 
     @AfterAll
-    public static void end() {
+    static void end() {
         // restore the logger status
         logger.removeHandler(LOG_MESSAGE_INTERCEPTOR_HANDLER);
-        logger.setLevel(PREVIOUS_LEVEL);
+        logger.setLevel(previousLevel);
     }
 
 }
