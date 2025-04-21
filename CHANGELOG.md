@@ -10,3 +10,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - [TestExampleJavaUtilLogging](turbo-unit-core/src/test/java/org/fugerit/java/turbo/unit/core/jul/TestExampleJavaUtilLogging.java)
+- GitHub workdlow : maven build and sonar scan
