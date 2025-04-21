@@ -13,7 +13,16 @@ import java.util.logging.LogRecord;
 import java.util.logging.Logger;
 
 /*
- * This class test if a specific line of log has been written using java util logging
+ * This class test if a specific line of log has been written using java util logging.
+ *
+ * I used this Unit Test the first time for a request on a PR I opened on SnakeYAML project :
+ *
+ * https://github.com/snakeyaml/snakeyaml/pull/17
+ *
+ * Here is the full original code :
+ *
+ * https://github.com/snakeyaml/snakeyaml/blob/b16f9485f33136fb30f8472f3ccf0209707c023e/src/test/java/org/yaml/snakeyaml/issues/issue1101/OptionToLogDuplicateKeysTest.java
+ *
  */
 class TestExampleJavaUtilLogging {
 
