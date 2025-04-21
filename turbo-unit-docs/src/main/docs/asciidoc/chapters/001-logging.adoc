@@ -1,0 +1,67 @@
+[#unit-logging]
+== Unit test for logging
+
+This chapter describes how to test if a specific line of code has been tested.
+
+[#unit-logging-jul]
+=== Unit test for Java Util Logging (JUL)
+
+Here is a simple class we want to test :
+
+[source,java]
+----
+public class ExampleJavaUtilLogging {
+
+    public static final String HELLO = "Hello Turbo!";
+
+    private static Logger log = Logger.getLogger(ExampleJavaUtilLogging.class.getName());
+
+    public void logHello() {
+        log.info( HELLO );
+    }
+
+}
+----
+
+Here is the full link:https://github.com/fugerit-org/turbo-unit/blob/main/turbo-unit-core/src/main/java/org/fugerit/java/turbo/unit/core/jul/ExampleJavaUtilLogging.java[ExampleJavaUtilLogging.java] java code.
+
+And we want to test if the line "Hello Turbo!" has been actually logged :
+
+[source,java]
+----
+@Test
+void testLogHello() {
+    ExampleJavaUtilLogging log = new ExampleJavaUtilLogging();
+    log.logHello();
+    Assertions.assertTrue( LOG_MESSAGE_INTERCEPTOR_HANDLER.containsLogMessage(ExampleJavaUtilLogging.HELLO) );
+}
+----
+
+This is achieved using an implementation of _java.util.loggin.Handler_ :
+
+[source,java]
+----
+public static class LogMessageInterceptorHandler extends Handler {
+
+    private Set<String> messages = new HashSet<>();
+
+    @Override
+    public void publish(LogRecord lr) {
+        // add log messages to a set
+        this.messages.add(lr.getMessage());
+    }
+
+    @Override
+    public boolean isLoggable(LogRecord lr) {
+        return super.isLoggable(lr);
+    }
+
+    public boolean containsLogMessage(String message) {
+        // check if a message has been logged
+        return this.messages.contains(message);
+    }
+
+}
+----
+
+Here is the full link:https://github.com/fugerit-org/turbo-unit/blob/main/turbo-unit-core/src/test/java/org/fugerit/java/turbo/unit/core/jul/TestExampleJavaUtilLogging.java[TestExampleJavaUtilLogging.java] sample code.

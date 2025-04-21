@@ -71,6 +71,7 @@
 
 	<modules>
 		<module>turbo-unit-core</module>
+		<module>turbo-unit-docs</module>
 	</modules>
 
 	<dependencies>
