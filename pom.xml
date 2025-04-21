@@ -12,7 +12,7 @@
 	<artifactId>turbo-unit</artifactId>
 	<version>1.0.0-SNAPSHOT</version>
 
-	<packaging>jar</packaging>
+	<packaging>pom</packaging>
 
 	<name>turbo-unit</name>
 	<description>Turbo Unit shows a range of complex use case on unit testing (based on Junit 5)</description>
@@ -33,8 +33,6 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<java-version-compliance>8</java-version-compliance>
-		<!-- libraries versions -->
-		<snake-yaml-version>2.4</snake-yaml-version>
 	    <!-- sonar cloud configuration -->
 		<sonar.host.url>https://sonarcloud.io</sonar.host.url>
 		<sonar.organization>fugerit-org</sonar.organization>
@@ -71,24 +69,11 @@
 		</snapshotRepository>
 	</distributionManagement>
 
+	<modules>
+		<module>turbo-unit-core</module>
+	</modules>
+
 	<dependencies>
-
-		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-api</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-simple</artifactId>
-			<scope>test</scope>
-		</dependency>
-
-		<dependency>
-			<groupId>org.junit.jupiter</groupId>
-			<artifactId>junit-jupiter-api</artifactId>
-			<scope>test</scope>
-		</dependency>
 
 	</dependencies>
 
