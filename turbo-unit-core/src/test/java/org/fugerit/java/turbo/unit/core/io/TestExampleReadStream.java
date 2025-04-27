@@ -44,7 +44,6 @@ class TestExampleReadStream {
         ExampleReadStream example = new ExampleReadStream();
         String testOk = "OK";
         try (InputStream is = new ByteArrayInputStream(testOk.getBytes())) {
-            // Assertions.assertThrows(ExampleRuntimeException.class, () -> example.readBytes(is));
             byte[] data = example.readBytes(is);
             Assertions.assertArrayEquals( data, testOk.getBytes() );
         }
