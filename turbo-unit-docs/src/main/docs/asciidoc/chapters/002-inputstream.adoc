@@ -1,0 +1,58 @@
+[#unit-exception]
+== Unit test for exception
+
+This chapter describes how to test when an exception is thrown.
+
+[#unit-exception-inputstream]
+=== Unit test for Exception when reading an InputStream
+
+Here is a simple class we want to test :
+
+[source,java]
+----
+public class ExampleReadStream {
+
+    public byte[] readBytes( InputStream inputStream ) {
+        try ( ByteArrayOutputStream buffer = new ByteArrayOutputStream() ) {
+            byte[] data = new byte[1024];
+            int read = inputStream.read( data );
+            while ( read > 0 ) {
+                buffer.write( data, 0, read );
+                read = inputStream.read( data );
+            }
+            return buffer.toByteArray();
+        } catch ( IOException e ) {
+            String message = String.format( "Error reading input stream : %s", e );
+            throw new ExampleRuntimeException( message, e );
+        }
+    }
+
+}
+----
+
+Here is the full link:https://github.com/fugerit-org/turbo-unit/blob/main/turbo-unit-core/src/main/java/org/fugerit/java/turbo/unit/core/io/ExampleReadStream.java[ExampleReadStream.java] java code.
+
+And to test if the exception is correctly handled, we can create a custom InputStream :
+
+[source,java]
+----
+    @Test
+    void testKo() throws IOException {
+        ExampleReadStream example = new ExampleReadStream();
+        try (InputStream is = new InputStream() {
+            @Override
+            public int read() throws IOException {
+                if (Boolean.TRUE) {
+                    throw new IOException("read failed (by scenario)");
+                }
+                return 0;
+            }
+        }) {
+            Assertions.assertThrows(ExampleRuntimeException.class, () -> example.readBytes(is));
+        }
+    }
+----
+
+Here is the full link:https://github.com/fugerit-org/turbo-unit/blob/main/turbo-unit-core/src/test/java/org/fugerit/java/turbo/unit/core/io/TestExampleReadStream.java[TestExampleReadStream.java] sample code.
+
+NOTE: I used this method the first time in the repository link:https://github.com/fugerit-org/fj-lib/blob/main/fj-core/src/test/java/test/org/fugerit/java/core/cfg/store/TestConfigStore.java#L81[TestConfigStore.java].

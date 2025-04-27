@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- [TestExampleReadStream](turbo-unit-core/src/test/java/org/fugerit/java/turbo/unit/core/io/TestExampleReadStream.java)
 - [TestExampleJavaUtilLogging](turbo-unit-core/src/test/java/org/fugerit/java/turbo/unit/core/jul/TestExampleJavaUtilLogging.java)
 - GitHub workflow : maven build and sonar scan
 - GitHub workflow : AsciiDoc to [GitHub pages](https://fugerit-org.github.io/turbo-unit/)
